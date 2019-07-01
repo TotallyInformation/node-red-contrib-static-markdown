@@ -1,11 +1,11 @@
     /* eslint-env browser */
     /* global $,RED */
-    // @ts-check
+    // @ts-nocheck
     'use strict'
 
     /** Node name must match this nodes html file @constant {string} nodeName */
-    const nodeName  = 'staticMarkdown'
-    const nodeLabel = 'Static Markdown'
+    var nodeName  = 'staticMarkdown'
+    var nodeLabel = 'Static Markdown'
 
     /** Register the node type, defaults and set up the edit fns */
     RED.nodes.registerType(nodeName, {
@@ -21,6 +21,6 @@
         outputs: 0,
         icon: 'ui_template.png',
         paletteLabel: nodeLabel,
-        label: function () { return this.url || this.name || 'UI Builder'; },
+        label: function () { return this.url || this.name || nodeLabel },
 
     })
