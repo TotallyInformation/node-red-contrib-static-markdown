@@ -1,0 +1,80 @@
+<!--
+    Copyright (c) 2019 Julian Knight (Totally Information)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<script type="text/javascript">
+    /* eslint-env browser */
+    /* global $,RED */
+    // @ts-check
+    'use strict'
+
+    /** Node name must match this nodes html file @constant {string} nodeName */
+    const nodeName  = 'staticMarkdown'
+    const nodeLabel = 'Static Markdown'
+
+    /** Register the node type, defaults and set up the edit fns */
+    RED.nodes.registerType(nodeName, {
+        category: 'UI Builder',
+        color: '#E6E0F8',
+        defaults: {
+            name: { value: '' },
+            topic: { value: '' },
+            url: { value: '', required: true },
+            source: { value: '', required: true },
+        },
+        inputs: 0,
+        outputs: 0,
+        icon: 'ui_template.png',
+        paletteLabel: nodeLabel,
+        label: function () { return this.url || this.name || 'UI Builder'; },
+
+    })
+
+</script>
+
+<script type="text/x-red" data-template-name="staticMarkdown">
+<div id="main-props">
+    <!-- Node Name -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+
+    <!-- Topic -->
+    <div class="form-row" title="Adds a msg.topic to input msgs if not already provided">
+        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic">
+    </div>
+
+    <!-- Home "page" id - defines the URL used -->
+    <div class="form-row" title="Make sure this gives a unique URL">
+        <label for="node-input-url"><i class="fa fa-globe"></i> URL</label>
+        <input type="text" id="node-input-url" title="required, <20 chars, unique, cannot be '.templates'">
+    </div>
+
+    <!-- Source Folder -->
+    <div class="form-row" title="">
+        <label for="node-input-source"><i class="fa fa-globe"></i> URL</label>
+        <input type="text" id="node-input-source" title="required">
+    </div>
+
+</div>
+
+</script>
+
+<script type="text/x-red" data-help-name="staticMarkdown">
+<p>Help for this node.</p>
+<p>More Help.</p>
+</script>

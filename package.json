@@ -1,0 +1,61 @@
+{
+  "name": "node-red-contrib-static-markdown",
+  "version": "1.0.0",
+  "description": "Serve up a folder of static markdown files from Node-RED",
+  "scripts": {
+    "build": "node ./bin/mergehtml",
+    "watchbuild": "node ./bin/watchhtml",
+    "prepush": "npm run build",
+    "push": "git push origin",
+    "pull": "git pull origin",
+    "presync": "npm run pull",
+    "sync": "npm run push",
+    "prepublishOnly": "npm run build",
+    "listbin": "ls ./node_modules/bin",
+    "npmtags": "npm dist-tag ls node-red-contrib-staticMarkdown",
+    "npmtagnext": "npm dist-tag add node-red-contrib-staticMarkdown@$npm_package_version next",
+    "gittags": "git tag",
+    "gittag": "git tag -a v$npm_package_version",
+    "gitpushtags": "git push origin --tags"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "replace-in-file": "^3.4.4"
+  },
+  "node-red": {
+    "version": ">=0.16.0",
+    "nodes": {
+      "uibuilder": "nodes/staticMarkdown.js"
+    },
+    "notyetnodes": {}
+  },
+  "directories": {
+    "bin": "./bin"
+  },
+  "bin": {
+    "mergehtml": "./bin/mergehtml.js",
+    "watchhtml": "./bin/watchhtml.js"
+  },
+  "main": "nodes/staticMarkdown.js",
+  "engines": {
+    "node": ">=8.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TotallyInformation/node-red-contrib-staticMarkdown.git"
+  },
+  "keywords": [
+    "node-red",
+    "markdown",
+    "static-serve"
+  ],
+  "author": {
+    "name": "Julian Knight",
+    "url": "https://github.com/TotallyInformation"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/TotallyInformation/node-red-contrib-staticMarkdown/issues"
+  },
+  "homepage": "https://github.com/TotallyInformation/node-red-contrib-staticMarkdown#readme"
+}
