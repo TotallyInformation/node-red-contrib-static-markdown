@@ -9,3 +9,18 @@
 - **[fs-extra]()** - Improved filing system handling
 - **[express]()** - HTTP/HTML server
 
+## Markdown extensions to be considered
+
+- Table of Contents
+- Checkboxes
+- Kbd markup
+- Maths
+- Diagrams (Mermaid)
+- Inline Styles
+- Footnotes
+- Sub/Superscript
+- TeX
+- Header anchors
+- Abbreviations
+- Includes
+- Enhanced tables (embedded block syntax)
