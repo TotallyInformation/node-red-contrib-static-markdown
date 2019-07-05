@@ -62,7 +62,7 @@ module.exports = function serveMarkdown(RED, node){
     var templateFolder = path.join(source, '.templates')
     if ( ! fs.pathExistsSync(templateFolder) ) templateFolder = false
 
-    console.log({userDir,httpNodeRoot,url,source})
+    //console.log({userDir,httpNodeRoot,url,source})
     
     var frontMatter = {}
 
@@ -140,11 +140,11 @@ module.exports = function serveMarkdown(RED, node){
                     templateFilename.push(lastSub)
                 }
                 
-                console.log({
-                    'Count': loopCount, 'gotToRoot': gotToRoot, 'foundTemplate': foundTemplate,
-                    'templateFilename': templateFilename,
-                    'path': tilib.pathJoin(templateFilename,'index.hbs'),
-                })
+                // console.log({
+                //     'Count': loopCount, 'gotToRoot': gotToRoot, 'foundTemplate': foundTemplate,
+                //     'templateFilename': templateFilename,
+                //     'path': tilib.pathJoin(templateFilename,'index.hbs'),
+                // })
 
                 try {
                     template = fs.readFileSync(tilib.pathJoin(templateFilename,'index.hbs'), {encoding:'utf8'})
