@@ -77,7 +77,9 @@ module.exports = function serveMarkdown(RED, node){
 
     /** Default HMTL template to use */
     // TODO Move to pre-compiled file and require instead of compile.
-    var template = '<body style="font-family:helvetica neue,arial,helvetica,sans-serif; margin:12px">{{{content}}}</body>'
+    //var template = '<body style="font-family:helvetica neue,arial,helvetica,sans-serif; margin:12px">{{{content}}}</body>'
+    
+    var template = fs.readFileSync(path.join(__dirname,'default-template.hbs'), {encoding:'utf8'})
 
     var originalurl
 
@@ -184,7 +186,8 @@ module.exports = function serveMarkdown(RED, node){
                 try {
                     res.send(hbTemplate({
                         'content': md.render( data.toString() ),
-                        'template': templateFilename.join(path.sep),
+                        'stylesheet': tilib.urlJoin(httpNodeRoot,url,'default.css'),
+                        'template': Array.isArray(templateFilename) ? templateFilename.join(path.sep) : '',
                         'mtime': stats.mtime,
                         'frontMatter': frontMatter,
                         'fmPre': JSON.stringify(frontMatter, undefined, 4),
@@ -200,7 +203,9 @@ module.exports = function serveMarkdown(RED, node){
     
     /** And serve anything else that is valid */
     // TODO need to make sure static doesn't display . files/folders
-    app.use(url, express.static(source))
+    app.use(url, [express.static(path.join(__dirname,'..','..','assets')), express.static(source)])
+
+    RED.log.info(`[serveMarkdown] Mounted ${source} on ${url}`)
 
 } // --- End of module.exports ---- //
 

@@ -54,6 +54,7 @@ Template files will be searched for in the following order:
 In addition to the translated markdown, the following metadata is provided to the Handlebars templating engine so that it can be used in custom templates:
 
 - **`template`**: Template filename used to render the file
+- **`stylesheet`**: The default stylesheet made available automatically
 - **`mtime`**: The date/time the file was last changed
 - **`frontMatter`**: An object containing properties from the YAML frontmatter
 - **`fmPre`**: A JSON.stringify'd version of the frontmatter suitable for debugging & understanding what frontmatter is available
@@ -68,12 +69,7 @@ The following is an example template showing content and metadata:
     <head>
         <meta charset="utf-8">
         <title>{{frontMatter.title}}</title>
-        <style>
-            body {
-                font-family:helvetica neue,arial,helvetica,sans-serif; 
-                margin:12px;
-            }
-        </style>
+        <link rel="stylesheet" href="{{stylesheet}}">
     </head><body>
         {{{content}}}
         <hr>
@@ -92,7 +88,9 @@ The following is an example template showing content and metadata:
 </html>
 ```
 
-Note the triple braces around the content variable. That tells Handlebars to treat the content as pre-rendered HTML.
+Notes:
+- The triple braces around the content variable. That tells Handlebars to treat the content as pre-rendered HTML.
+- The linked stylesheet is pointing to the default sheet
 
 ## Inspiration
 
