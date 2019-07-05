@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-static-markdown",
-  "version": "1.0.0",
+  "version": "0.0.10",
   "description": "Serve up a folder of static markdown files from Node-RED",
   "scripts": {
     "build": "node ./bin/mergehtml",
@@ -19,6 +19,12 @@
     "gitpushtags": "git push origin --tags"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "fs-extra": "^8.1.0",
+    "handlebars": "^4.1.2",
+    "js-yaml": "^3.13.1",
+    "markdown-it": "^8.4.2",
+    "markdown-it-front-matter": "^0.1.2"
   },
   "devDependencies": {
     "@types/node-red": "^0.20.0",
