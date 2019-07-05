@@ -21,7 +21,6 @@ const path = require('path')
 const express = require('express')
 const tilib = require('./tilib.js')
 const handlebars = require('handlebars')
-const YAML = require('yaml')
 const yaml = require('js-yaml')
 
 module.exports = function serveMarkdown(RED, node){
