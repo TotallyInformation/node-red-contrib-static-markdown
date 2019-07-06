@@ -17,12 +17,12 @@
 <script type="text/javascript">
     /* eslint-env browser */
     /* global $,RED */
-    // @ts-check
+    // @ts-nocheck
     'use strict'
 
     /** Node name must match this nodes html file @constant {string} nodeName */
-    const nodeName  = 'staticMarkdown'
-    const nodeLabel = 'Static Markdown'
+    var nodeName  = 'staticMarkdown'
+    var nodeLabel = 'Static Markdown'
 
     /** Register the node type, defaults and set up the edit fns */
     RED.nodes.registerType(nodeName, {
@@ -38,7 +38,7 @@
         outputs: 0,
         icon: 'ui_template.png',
         paletteLabel: nodeLabel,
-        label: function () { return this.url || this.name || 'UI Builder'; },
+        label: function () { return this.url || this.name || nodeLabel },
 
     })
 
@@ -52,11 +52,11 @@
         <input type="text" id="node-input-name">
     </div>
 
-    <!-- Topic -->
+    <!-- Topic
     <div class="form-row" title="Adds a msg.topic to input msgs if not already provided">
         <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
         <input type="text" id="node-input-topic">
-    </div>
+    </div> -->
 
     <!-- Home "page" id - defines the URL used -->
     <div class="form-row" title="Make sure this gives a unique URL">
@@ -66,7 +66,7 @@
 
     <!-- Source Folder -->
     <div class="form-row" title="">
-        <label for="node-input-source"><i class="fa fa-globe"></i> URL</label>
+        <label for="node-input-source"><i class="fa fa-globe"></i> Source Folder</label>
         <input type="text" id="node-input-source" title="required">
     </div>
 
@@ -75,6 +75,22 @@
 </script>
 
 <script type="text/x-red" data-help-name="staticMarkdown">
-<p>Help for this node.</p>
-<p>More Help.</p>
+<p>Serves up a folder of Markdown files as a web site</p>
+
+<p>Uses markdown-it with extensions to translate content to HTML. Uses Handlebars to wrap round the content.</p>
+
+<h3>Configuration</h3>
+    <dl class="message-properties">
+        <dt>name <span class="property-type">string</span></dt>
+        <dd>Optional name shown in flow.</dd>
+        <dt>URL <span class="property-type">string</span></dt>
+        <dd>Required. The URL fragment appended to the <code>httpNodeRoot</code> (or <code>/</code> if that isn't set).</dd>
+        <dt>Source Folder <span class="property-type">string</span></dt>
+        <dd>Required. The filing system path to the root folder containing the Markdown source files to serve.</dd>
+        <dd>If the Node-RED setting <code>httpStatic</code> is set, that will be used as a default.</dd>
+    </dl>
+
+<h3>Details</h3>
+
+<p>Please see the <a href="https://github.com/TotallyInformation/node-red-contrib-static-markdown" target="_blank">README file</a> for additional information.</p>
 </script>

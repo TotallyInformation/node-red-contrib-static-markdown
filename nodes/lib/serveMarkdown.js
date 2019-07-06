@@ -22,6 +22,7 @@ const express = require('express')
 const tilib = require('./tilib.js')
 const handlebars = require('handlebars')
 const yaml = require('js-yaml')
+//const sanitizeHtml = require('sanitize-html')
 
 module.exports = function serveMarkdown(RED, node){
     /** Folder containing settings.js, installed nodes, etc. 
@@ -74,11 +75,25 @@ module.exports = function serveMarkdown(RED, node){
     .use(require('markdown-it-front-matter'), function(fm) {
         frontMatter = yaml.load(fm)
     })
-
+    .use(require('markdown-it-sub'))
+    .use(require('markdown-it-sup'))
+    .use(require('@gerhobbelt/markdown-it-attrs'))
+    .use(require('@gerhobbelt/markdown-it-footnote'))
+    .use(require('@gerhobbelt/markdown-it-emoji'))
+    .use(require('markdown-it-playground'))
+    .use(require('markdown-it-anchor'))
+    .use(require('markdown-it-table-of-contents'))
+    .use(require('markdown-it-imsize'))
+    .use(require('markdown-it-checkbox'))
+    .use(require('markdown-it-mark'))
+    .use(require('markdown-it-kbd'))
+    .use(require('markdown-it-prism'),{'plugins':['highlight-keywords']})
+    //.use(require('markdown-it-diagrams').diagramPlugin)
+    //.use(require('markdown-it-mermaid'))
+    
     /** Default HMTL template to use */
     // TODO Move to pre-compiled file and require instead of compile.
     //var template = '<body style="font-family:helvetica neue,arial,helvetica,sans-serif; margin:12px">{{{content}}}</body>'
-    
     var template = fs.readFileSync(path.join(__dirname,'default-template.hbs'), {encoding:'utf8'})
 
     var originalurl
@@ -185,9 +200,20 @@ module.exports = function serveMarkdown(RED, node){
                 var stats = fs.statSync(fileName)
                 try {
                     res.send(hbTemplate({
+                        // 'content': sanitizeHtml( 
+                        //     md.render( 
+                        //         data.toString() ), {
+                        //             'allowedIframeHostnames': [
+                        //                 'jsfiddle.net', 'codepen.io'
+                        //             ],
+                        //             allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'iframe' ]),
+                        //             allowedAttributes: false, // allow all attributes
+                        //         }
+                        //     ),
                         'content': md.render( data.toString() ),
-                        'stylesheet': tilib.urlJoin(httpNodeRoot,url,'default.css'),
-                        'template': Array.isArray(templateFilename) ? templateFilename.join(path.sep) : '',
+                        'stylesheet': frontMatter.stylesheet ? frontMatter.stylesheet : tilib.urlJoin(httpNodeRoot,url,'default.css'),
+                        'prismstyles': frontMatter.prismstyles ? frontMatter.prismstyles : tilib.urlJoin(httpNodeRoot,url,'prism.css'),
+                        'template': frontMatter.template ? frontMatter.template : Array.isArray(templateFilename) ? templateFilename.join(path.sep) : '',
                         'mtime': stats.mtime,
                         'frontMatter': frontMatter,
                         'fmPre': JSON.stringify(frontMatter, undefined, 4),
@@ -202,7 +228,6 @@ module.exports = function serveMarkdown(RED, node){
     })
     
     /** And serve anything else that is valid */
-    // TODO need to make sure static doesn't display . files/folders
     app.use(url, [express.static(path.join(__dirname,'..','..','assets')), express.static(source)])
 
     RED.log.info(`[serveMarkdown] Mounted ${source} on ${url}`)

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{{frontMatter.title}}</title>
+        <link rel="stylesheet" href="{{stylesheet}}">
+        <link rel="stylesheet" href="{{prismstyles}}">
+    </head><body>
+        {{{content}}}
+        <hr>
+        <h2>Meta Data</h2>
+        <dl>
+            <dt>Stylesheet</dt> <dd>{{stylesheet}}</dd>
+            <dt>Prism Styles (Syntax Highlighting)</dt> <dd>{{prismstyles}}</dd>
+            <dt>Template</dt> <dd>{{template}}</dd>
+            <dt>Date/Time Modified</dt> <dd>{{mtime}}</dd>
+        </dl>
+
+        <h2>Front Matter</h2>
+        <pre class="language-json">{{fmPre}}</pre>
+    </body>
+</html>

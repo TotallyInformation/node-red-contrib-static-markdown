@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <style>
+            body { font-family:helvetica neue,arial,helvetica,sans-serif; margin:12px; }
+        </style>
+    </head>
+<body>
+<h1>DEFAULT .templates/sub1/sub1-1 TEMPLATE</h1>
+<hr>
+{{{content}}}
+<hr>
+<h2>Meta Data</h2>
+<dl>
+    <dt>Template</dt> <dd>{{template}}</dd>
+    <dt>Date/Time Modified</dt> <dd>{{mtime}}</dd>
+</dl>
+
+<h2>Front Matter</h2>
+<dl>
+    <dt>Title</dt> <dd>{{frontMatter.title}}</dd>
+    <dt>Am I</dt> <dd>{{frontMatter.ami}}?</dd>
+    <dt>Watch</dt> <dd>--{{frontMatter.watch}}--</dd>
+</dl>
+<pre>{{fmPre}}</pre>
+
+</body></html>
