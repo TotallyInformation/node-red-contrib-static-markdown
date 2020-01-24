@@ -5,7 +5,7 @@
 
     /** Node name must match this nodes html file @constant {string} nodeName */
     var nodeName  = 'staticMarkdown'
-    var nodeLabel = 'Static Markdown'
+    var nodeLabel = 'markdown'
 
     /** Register the node type, defaults and set up the edit fns */
     RED.nodes.registerType(nodeName, {
