@@ -9,7 +9,7 @@
 
     /** Register the node type, defaults and set up the edit fns */
     RED.nodes.registerType(nodeName, {
-        category: 'UI Builder',
+        category: 'uibuilder',
         color: '#E6E0F8',
         defaults: {
             name: { value: '' },
