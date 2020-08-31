@@ -130,10 +130,9 @@ module.exports = function serveMarkdown(RED, node){
         /** @type {null|string|string[]} */
         var templateFilename = null
 
+        var foundTemplate = false
         /** Is there a custom template to use? */
         if ( templateFolder !== false) {
-            var foundTemplate = false
-            
             // @ts-ignore
             templateFilename = path.join(templateFolder,req.url.replace(node.url, '').replace('.md', '.hbs'))
 
@@ -170,17 +169,16 @@ module.exports = function serveMarkdown(RED, node){
                 } catch(e) { /*console.error(e)*/ }
                 
             } // -- end of while -- //
-
-            /** Finally check for a generic `.template.hbs` file in the source folder */
-            if ( foundTemplate === false ) {
-                try {
-                    template = fs.readFileSync(path.join(source,'.template.hbs'), {encoding:'utf8'})
-                    foundTemplate = true
-                } catch(e) { /* console.error(e) */ }
-            }
-
-            /** Otherwise use the built-in generic template */
         } // -- end of templateFolder <> false -- //
+
+        /** Finally check for a generic `.template.hbs` file in the source folder */
+        if ( foundTemplate === false ) {
+            try {
+                template = fs.readFileSync(path.join(source,'.template.hbs'), {encoding:'utf8'})
+                foundTemplate = true
+            } catch(e) { /* console.error(e) */ }
+            /** Otherwise use the built-in generic template */
+        }
 
         /** Compile template */
         // TODO pre-compile default template
