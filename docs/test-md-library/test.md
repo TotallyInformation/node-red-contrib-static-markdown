@@ -301,7 +301,7 @@ Subscript: 'H~2~0', Superscript: 29^th^
 
 ## Custom Attributes
 
-Requires extension to markdown-it. `@gerhobbelt/markdown-it-attrs`
+Requires extension to markdown-it. `markdown-it-attrs`
 
 NOTE: Only classes work attached in-line, everything else applies to the block and must go at the end of the line
 

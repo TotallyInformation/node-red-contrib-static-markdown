@@ -7,7 +7,7 @@
   The following markdown-it extensions are installed:
 
   - **[markdown-it-anchor](https://www.npmjs.com/package/markdown-it-anchor)** - Add anchor's to all headings.
-  - **[markdown-it-attrs](https://www.npmjs.com/package/@gerhobbelt/markdown-it-attrs)** - Allow custom attributes
+  - **[markdown-it-attrs](https://www.npmjs.com/package/markdown-it-attrs)** - Allow custom attributes
   - **[markdown-it-checkbox](https://www.npmjs.com/package/markdown-it-checkbox)** - Lists with checkboxes
   - **[markdown-it-emoji](https://www.npmjs.com/package/@gerhobbelt/markdown-it-emoji)** - Emoji's
   - **[markdown-it-include](https://www.npmjs.com/package/@gerhobbelt/markdown-it-include)** - include markdown files
