@@ -57,6 +57,8 @@ Template files will be searched for in the following order:
 - Root source folder & `.template.hbs`
 - Internal default template string
 
+Note that Node-RED must be restarted if new templates are added. Redeploying the flows using the editor menu is not sufficient.
+
 ## Template metadata
 
 In addition to the translated markdown, the following metadata is provided to the Handlebars templating engine so that it can be used in custom templates:

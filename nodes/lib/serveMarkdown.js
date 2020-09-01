@@ -68,6 +68,15 @@ module.exports = function serveMarkdown(RED, node){
     var frontMatter = {}
 
     /** Include and configure markdown library */
+
+    // copy pasted from https://github.com/GerHobbelt/markdown-it-include
+    const include_options = {
+       root: '/bogus/',
+       // show the 
+       getRootDir: (options, state, startLine, endLine) =>  state.env.getIncludeRootDir(options, state, startLine, endLine),
+       bracesAreOptional: true
+    };
+
     const md = require('markdown-it')({
         html:true, 
         linkify:true,
@@ -80,6 +89,7 @@ module.exports = function serveMarkdown(RED, node){
     .use(require('@gerhobbelt/markdown-it-attrs'))
     .use(require('@gerhobbelt/markdown-it-footnote'))
     .use(require('@gerhobbelt/markdown-it-emoji'))
+    .use(require('@gerhobbelt/markdown-it-include'),include_options)
     .use(require('markdown-it-playground'))
     .use(require('markdown-it-anchor'))
     .use(require('markdown-it-table-of-contents'))
@@ -129,10 +139,9 @@ module.exports = function serveMarkdown(RED, node){
         /** @type {null|string|string[]} */
         var templateFilename = null
 
+        var foundTemplate = false
         /** Is there a custom template to use? */
         if ( templateFolder !== false) {
-            var foundTemplate = false
-            
             // @ts-ignore
             templateFilename = path.join(templateFolder,req.url.replace(node.url, '').replace('.md', '.hbs'))
 
@@ -169,17 +178,16 @@ module.exports = function serveMarkdown(RED, node){
                 } catch(e) { /*console.error(e)*/ }
                 
             } // -- end of while -- //
-
-            /** Finally check for a generic `.template.hbs` file in the source folder */
-            if ( foundTemplate === false ) {
-                try {
-                    template = fs.readFileSync(path.join(source,'.template.hbs'), {encoding:'utf8'})
-                    foundTemplate = true
-                } catch(e) { /* console.error(e) */ }
-            }
-
-            /** Otherwise use the built-in generic template */
         } // -- end of templateFolder <> false -- //
+
+        /** Finally check for a generic `.template.hbs` file in the source folder */
+        if ( foundTemplate === false ) {
+            try {
+                template = fs.readFileSync(path.join(source,'.template.hbs'), {encoding:'utf8'})
+                foundTemplate = true
+            } catch(e) { /* console.error(e) */ }
+            /** Otherwise use the built-in generic template */
+        }
 
         /** Compile template */
         // TODO pre-compile default template
@@ -199,6 +207,28 @@ module.exports = function serveMarkdown(RED, node){
             } else {
                 var stats = fs.statSync(fileName)
                 try {
+                
+            // copy pasted from https://github.com/GerHobbelt/markdown-it-include
+                // now in some async code rendering multiple MD files, we can do this:
+                    
+                    // (`mdPath` is an absolute path pointing to the MD file being processed)
+                    let mdPath = fileName;
+
+                    let env = {};
+                    env.getIncludeRootDir = function (options, state, startLine, endLine) {
+                       return path.dirname(mdPath);
+                    };
+
+                // Use the 'unwrapped' version of the md.render / md.parse process:
+                    // 
+                    // let content = md.render(data); --> .parse + .renderer.render
+                    //
+                    // .parse --> new state + process: return tokens
+                    // let tokens = md.parse(data, env)
+                    let state = new md.core.State(data, md, env);   // <-- here our env is injected into state!
+                    md.core.process(state);
+                    let tokens = state.tokens;
+
                     res.send(hbTemplate({
                         // 'content': sanitizeHtml( 
                         //     md.render( 
@@ -210,7 +240,7 @@ module.exports = function serveMarkdown(RED, node){
                         //             allowedAttributes: false, // allow all attributes
                         //         }
                         //     ),
-                        'content': md.render( data.toString() ),
+                        'content': md.renderer.render(tokens, md.options, env), // md.render( data.toString() ),
                         'stylesheet': frontMatter.stylesheet ? frontMatter.stylesheet : tilib.urlJoin(httpNodeRoot,url,'default.css'),
                         'prismstyles': frontMatter.prismstyles ? frontMatter.prismstyles : tilib.urlJoin(httpNodeRoot,url,'prism.css'),
                         'template': frontMatter.template ? frontMatter.template : Array.isArray(templateFilename) ? templateFilename.join(path.sep) : '',
