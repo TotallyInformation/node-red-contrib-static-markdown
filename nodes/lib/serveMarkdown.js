@@ -86,7 +86,7 @@ module.exports = function serveMarkdown(RED, node){
     })
     .use(require('markdown-it-sub'))
     .use(require('markdown-it-sup'))
-    .use(require('@gerhobbelt/markdown-it-attrs'))
+    .use(require('markdown-it-attrs'))
     .use(require('@gerhobbelt/markdown-it-footnote'))
     .use(require('@gerhobbelt/markdown-it-emoji'))
     .use(require('@gerhobbelt/markdown-it-include'),include_options)
