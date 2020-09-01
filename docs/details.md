@@ -7,9 +7,10 @@
   The following markdown-it extensions are installed:
 
   - **[markdown-it-anchor](https://www.npmjs.com/package/markdown-it-anchor)** - Add anchor's to all headings.
-  - **[markdown-it-attrs](https://www.npmjs.com/package/@gerhobbelt/markdown-it-attrs)** - Allow custom attributes
+  - **[markdown-it-attrs](https://www.npmjs.com/package/markdown-it-attrs)** - Allow custom attributes
   - **[markdown-it-checkbox](https://www.npmjs.com/package/markdown-it-checkbox)** - Lists with checkboxes
   - **[markdown-it-emoji](https://www.npmjs.com/package/@gerhobbelt/markdown-it-emoji)** - Emoji's
+  - **[markdown-it-include](https://www.npmjs.com/package/@gerhobbelt/markdown-it-include)** - include markdown files
   - **[markdown-it-footnote](https://www.npmjs.com/package/@gerhobbelt/markdown-it-footnote)** - Supports footnote links
   - **[markdown-it-front-matter](https://www.npmjs.com/package/markdown-it-front-matter)** - Allows parsing of YAML based front-matter
   - **[markdown-it-imsize](https://www.npmjs.com/package/markdown-it-imsize)** - add wxh size to be added to images
@@ -33,4 +34,3 @@
 - Maths
 - Diagrams (Mermaid)
 - TeX
-- Includes
