@@ -70,7 +70,7 @@ module.exports = function serveMarkdown(RED, node){
     /** Include and configure markdown library */
 
     // copy pasted from https://github.com/GerHobbelt/markdown-it-include
-    const include_options = {
+    const includeOptions = {
        root: '/bogus/',
        // show the 
        getRootDir: (options, state, startLine, endLine) =>  state.env.getIncludeRootDir(options, state, startLine, endLine),
@@ -89,7 +89,7 @@ module.exports = function serveMarkdown(RED, node){
     .use(require('markdown-it-attrs'))
     .use(require('@gerhobbelt/markdown-it-footnote'))
     .use(require('@gerhobbelt/markdown-it-emoji'))
-    .use(require('@gerhobbelt/markdown-it-include'),include_options)
+    .use(require('@gerhobbelt/markdown-it-include'),includeOptions)
     .use(require('markdown-it-playground'))
     .use(require('markdown-it-anchor'))
     .use(require('markdown-it-table-of-contents'))
