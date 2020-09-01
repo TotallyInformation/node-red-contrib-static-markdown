@@ -71,7 +71,7 @@ module.exports = function serveMarkdown(RED, node){
 
     // copy pasted from https://github.com/GerHobbelt/markdown-it-include
     const includeOptions = {
-       root: '/bogus/',
+       root: "/bogus/",
        // show the 
        getRootDir: (options, state, startLine, endLine) =>  state.env.getIncludeRootDir(options, state, startLine, endLine),
        bracesAreOptional: true
