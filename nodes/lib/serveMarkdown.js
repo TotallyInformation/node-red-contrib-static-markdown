@@ -108,25 +108,20 @@ module.exports = function serveMarkdown(RED, node){
 
     var originalurl
 
-    /** If request isn't for .md file, check for index.md */
+    /** If request isn't for .md file, redirect to ../index.md */
     app.use(url, function(req, res, next) {
-        originalurl = req.url
-
         // Get last element of url path
         var last = req.url.split('/').pop()
 
         // If last element has no dot ...
         if ( last.indexOf('.') === -1 ) {
-            // append index.md as a default file.
-            req.url += '/index.md'
-        }
-
-        // If last element name starts with . (not allowed) ...
-        if ( last.indexOf('.') === 0 ) {
+            // redirect to  .../index.md 
+            // replace command removes the / at the end of the url if it exists.
+            res.redirect( req.originalUrl.replace(/\/$/,"") + '/index.md');
+        } // If last element name starts with . (not allowed) ...
+        else if ( last.indexOf('.') === 0 ) {
             res.status(404).send('<h1>Sorry. File not found.</h1>')
-        }
-
-        next()
+        } else { next(); }
     })
 
     /** Serve up markdown files that are in the source folder */
