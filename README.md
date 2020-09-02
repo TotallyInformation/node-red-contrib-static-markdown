@@ -105,7 +105,7 @@ Notes:
 
 ## What is missing at the moment?
 
-As this is an early release, there are still a few rough edges and some enhancements that I want to add.
+There are still some enhancements that I want to add:
 
 - The selected source folder is not created for you. You have to do that yourself.
 - Missing some markdown enhancements. See [docs/details.md](docs/details.md) for details.

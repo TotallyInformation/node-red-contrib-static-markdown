@@ -26,8 +26,9 @@
 
 - **[js-yaml]()** - Parse YAML front-matter
 - **[handlebars]()** - Provides custom templating to wrap around parsed markdown
-- **[fs-extra]()** - Improved filing system handling
+- **[fs-extra](https://www.npmjs.com/package/fs-extra)** - Improved filing system handling
 - **[express]()** - HTTP/HTML server
+- **[replace-in-file](https://www.npmjs.com/package/replace-in-file)** - 
 
 ## Markdown extensions to be considered
 
