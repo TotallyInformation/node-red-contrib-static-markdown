@@ -1,5 +1,5 @@
 <!--
-    Copyright (c) 2019 Julian Knight (Totally Information)
+    Copyright (c) 2020 Julian Knight (Totally Information)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,80 +17,79 @@
 <script type="text/javascript">
     /* eslint-env browser */
     /* global $,RED */
-    // @ts-nocheck
-    'use strict'
+    ;(function () { // Isolate this code
+        'use strict'
 
-    /** Node name must match this nodes html file @constant {string} nodeName */
-    var nodeName  = 'staticMarkdown'
-    var nodeLabel = 'markdown'
+        /** Node name must match this nodes html file @constant {string} nodeName */
+        var nodeName  = 'staticMarkdown'
+        var nodeLabel = 'markdown'
 
-    /** Register the node type, defaults and set up the edit fns */
-    RED.nodes.registerType(nodeName, {
-        category: 'uibuilder',
-        color: '#E6E0F8',
-        defaults: {
-            name: { value: '' },
-            topic: { value: '' },
-            url: { value: '', required: true },
-            source: { value: '', required: true },
-        },
-        inputs: 0,
-        outputs: 0,
-        icon: 'ui_template.png',
-        paletteLabel: nodeLabel,
-        label: function () { return this.url || this.name || nodeLabel },
+        /** Register the node type, defaults and set up the edit fns */
+        RED.nodes.registerType(nodeName, {
+            category: 'uibuilder',
+            color: '#E6E0F8',
+            defaults: {
+                name: { value: '' },
+                topic: { value: '' },
+                url: { value: '', required: true },
+                source: { value: '', required: true },
+            },
+            inputs: 0,
+            outputs: 0,
+            icon: 'ui_template.png',
+            paletteLabel: nodeLabel,
+            label: function () { return this.url || this.name || nodeLabel },
 
-    })
-
+        })
+    })()
 </script>
 
-<script type="text/x-red" data-template-name="staticMarkdown">
-<div id="main-props">
-    <!-- Node Name -->
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name">
+<script type="text/html" data-template-name="staticMarkdown">
+    <div id="main-props">
+        <!-- Node Name -->
+        <div class="form-row">
+            <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+            <input type="text" id="node-input-name">
+        </div>
+
+        <!-- Topic
+        <div class="form-row" title="Adds a msg.topic to input msgs if not already provided">
+            <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
+            <input type="text" id="node-input-topic">
+        </div> -->
+
+        <!-- Home "page" id - defines the URL used -->
+        <div class="form-row" title="Make sure this gives a unique URL">
+            <label for="node-input-url"><i class="fa fa-globe"></i> URL</label>
+            <input type="text" id="node-input-url" title="required, <20 chars, unique, cannot be '.templates'">
+        </div>
+
+        <!-- Source Folder -->
+        <div class="form-row" title="">
+            <label for="node-input-source"><i class="fa fa-globe"></i> Source Folder</label>
+            <input type="text" id="node-input-source" title="required">
+        </div>
+
     </div>
-
-    <!-- Topic
-    <div class="form-row" title="Adds a msg.topic to input msgs if not already provided">
-        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
-        <input type="text" id="node-input-topic">
-    </div> -->
-
-    <!-- Home "page" id - defines the URL used -->
-    <div class="form-row" title="Make sure this gives a unique URL">
-        <label for="node-input-url"><i class="fa fa-globe"></i> URL</label>
-        <input type="text" id="node-input-url" title="required, <20 chars, unique, cannot be '.templates'">
-    </div>
-
-    <!-- Source Folder -->
-    <div class="form-row" title="">
-        <label for="node-input-source"><i class="fa fa-globe"></i> Source Folder</label>
-        <input type="text" id="node-input-source" title="required">
-    </div>
-
-</div>
-
 </script>
 
-<script type="text/x-red" data-help-name="staticMarkdown">
-<p>Serves up a folder of Markdown files as a web site</p>
+<script type="text/html" data-help-name="staticMarkdown">
+    <p>Serves up a folder of Markdown files as a web site</p>
 
-<p>Uses markdown-it with extensions to translate content to HTML. Uses Handlebars to wrap round the content.</p>
+    <p>Uses markdown-it with extensions to translate content to HTML. Uses Handlebars to wrap round the content.</p>
 
-<h3>Configuration</h3>
-    <dl class="message-properties">
-        <dt>name <span class="property-type">string</span></dt>
-        <dd>Optional name shown in flow.</dd>
-        <dt>URL <span class="property-type">string</span></dt>
-        <dd>Required. The URL fragment appended to the <code>httpNodeRoot</code> (or <code>/</code> if that isn't set).</dd>
-        <dt>Source Folder <span class="property-type">string</span></dt>
-        <dd>Required. The filing system path to the root folder containing the Markdown source files to serve.</dd>
-        <dd>If the Node-RED setting <code>httpStatic</code> is set, that will be used as a default.</dd>
-    </dl>
+    <h3>Configuration</h3>
+        <dl class="message-properties">
+            <dt>name <span class="property-type">string</span></dt>
+            <dd>Optional name shown in flow.</dd>
+            <dt>URL <span class="property-type">string</span></dt>
+            <dd>Required. The URL fragment appended to the <code>httpNodeRoot</code> (or <code>/</code> if that isn't set).</dd>
+            <dt>Source Folder <span class="property-type">string</span></dt>
+            <dd>Required. The filing system path to the root folder containing the Markdown source files to serve.</dd>
+            <dd>If the Node-RED setting <code>httpStatic</code> is set, that will be used as a default.</dd>
+        </dl>
 
-<h3>Details</h3>
+    <h3>Details</h3>
 
-<p>Please see the <a href="https://github.com/TotallyInformation/node-red-contrib-static-markdown" target="_blank">README file</a> for additional information.</p>
+    <p>Please see the <a href="https://github.com/TotallyInformation/node-red-contrib-static-markdown" target="_blank">README file</a> for additional information.</p>
 </script>

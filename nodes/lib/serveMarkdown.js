@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019 Julian Knight (Totally Information)
+ * Copyright (c) 2020 Julian Knight (Totally Information)
  * https://it.knightnet.org.uk
  *
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -71,35 +71,33 @@ module.exports = function serveMarkdown(RED, node){
 
     // copy pasted from https://github.com/GerHobbelt/markdown-it-include
     const includeOptions = {
-       root: "/bogus/",
-       // show the 
-       getRootDir: (options, state, startLine, endLine) =>  state.env.getIncludeRootDir(options, state, startLine, endLine),
-       bracesAreOptional: true
-    };
+        root: '/bogus/',
+        // show the 
+        getRootDir: (options, state, startLine, endLine) =>  state.env.getIncludeRootDir(options, state, startLine, endLine),
+        bracesAreOptional: true
+    }
 
     const md = require('markdown-it')({
-        html:true, 
-        linkify:true,
+        html: true, 
+        linkify: true,
     })
-    .use(require('markdown-it-front-matter'), function(fm) {
-        frontMatter = yaml.load(fm)
-    })
-    .use(require('markdown-it-sub'))
-    .use(require('markdown-it-sup'))
-    .use(require('markdown-it-attrs'))
-    .use(require('@gerhobbelt/markdown-it-footnote'))
-    .use(require('@gerhobbelt/markdown-it-emoji'))
-    .use(require('@gerhobbelt/markdown-it-include'),includeOptions)
-    .use(require('markdown-it-playground'))
-    .use(require('markdown-it-anchor'))
-    .use(require('markdown-it-table-of-contents'))
-    .use(require('markdown-it-imsize'))
-    .use(require('markdown-it-checkbox'))
-    .use(require('markdown-it-mark'))
-    .use(require('markdown-it-kbd'))
-    .use(require('markdown-it-prism'),{'plugins':['highlight-keywords']})
-    //.use(require('markdown-it-diagrams').diagramPlugin)
-    //.use(require('markdown-it-mermaid'))
+        .use(require('markdown-it-front-matter'), function(fm) {
+            frontMatter = yaml.load(fm)
+        })
+        .use(require('markdown-it-sub'))
+        .use(require('markdown-it-sup'))
+        .use(require('markdown-it-attrs'))
+        .use(require('@gerhobbelt/markdown-it-footnote'))
+        .use(require('markdown-it-emoji'))
+        .use(require('@gerhobbelt/markdown-it-include'),includeOptions)
+        .use(require('markdown-it-playground'))
+        .use(require('markdown-it-anchor'))
+        .use(require('markdown-it-table-of-contents'))
+        .use(require('markdown-it-imsize'))
+        .use(require('markdown-it-checkbox'))
+        .use(require('markdown-it-mark'))
+        .use(require('markdown-it-kbd'))
+        .use(require('markdown-it-prism'),{'plugins':['highlight-keywords']})
     
     /** Default HMTL template to use */
     // TODO Move to pre-compiled file and require instead of compile.
@@ -203,26 +201,26 @@ module.exports = function serveMarkdown(RED, node){
                 var stats = fs.statSync(fileName)
                 try {
                 
-            // copy pasted from https://github.com/GerHobbelt/markdown-it-include
-                // now in some async code rendering multiple MD files, we can do this:
+                    // copy pasted from https://github.com/GerHobbelt/markdown-it-include
+                    // now in some async code rendering multiple MD files, we can do this:
                     
                     // (`mdPath` is an absolute path pointing to the MD file being processed)
-                    let mdPath = fileName;
+                    let mdPath = fileName
 
-                    let env = {};
+                    let env = {}
                     env.getIncludeRootDir = function (options, state, startLine, endLine) {
-                       return path.dirname(mdPath);
-                    };
+                        return path.dirname(mdPath)
+                    }
 
-                // Use the 'unwrapped' version of the md.render / md.parse process:
+                    // Use the 'unwrapped' version of the md.render / md.parse process:
                     // 
                     // let content = md.render(data); --> .parse + .renderer.render
                     //
                     // .parse --> new state + process: return tokens
                     // let tokens = md.parse(data, env)
-                    let state = new md.core.State(data, md, env);   // <-- here our env is injected into state!
-                    md.core.process(state);
-                    let tokens = state.tokens;
+                    let state = new md.core.State(data, md, env)   // <-- here our env is injected into state!
+                    md.core.process(state)
+                    let tokens = state.tokens
 
                     res.send(hbTemplate({
                         // 'content': sanitizeHtml( 
