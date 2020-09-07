@@ -21,14 +21,21 @@
   - **[markdown-it-sub](https://www.npmjs.com/package/markdown-it-sub)** - Subscript tag
   - **[markdown-it-sup](https://www.npmjs.com/package/markdown-it-sup)** - Superscript tag
   - **[markdown-it-table-of-contents](https://www.npmjs.com/package/markdown-it-table-of-contents)** - Use `[[toc]]` to generate a table of contents.
-  - **NOT CURRENTLY WORKING** None of the mermaid extensions appear to work ~~**[markdown-it-mermaid]()** - Diagrams~~
+  - **[markdown-it-textual-uml](https://github.com/manastalukdar/markdown-it-textual-uml)** - Diagrams using PlantUML or Mermaid. 
+    
+    Note the requirement for using the following in your .hbs template:
+
+    ```html
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    ```
 
 
 - **[js-yaml]()** - Parse YAML front-matter
 - **[handlebars]()** - Provides custom templating to wrap around parsed markdown
 - **[fs-extra](https://www.npmjs.com/package/fs-extra)** - Improved filing system handling
 - **[express]()** - HTTP/HTML server
-- **[replace-in-file](https://www.npmjs.com/package/replace-in-file)** - 
+- **[replace-in-file](https://www.npmjs.com/package/replace-in-file)** - for development only
 
 ## Markdown extensions to be considered
 

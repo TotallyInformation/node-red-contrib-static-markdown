@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file. The format 
 
 uibuilder adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/TotallyInformation/node-red-static-markdown/compare/v0.0.15...master)
+## [Unreleased](https://github.com/TotallyInformation/node-red-static-markdown/compare/v0.2.0...master)
 
-*
+* 
+
+## [0.2.0](https://github.com/TotallyInformation/node-red-static-markdown/compare/v0.1.1...v0.2.0)
+
+* Added a diagramming feature using [markdown-it-textual-uml](https://github.com/manastalukdar/markdown-it-textual-uml). You can now create diagrams and charts from text using either [PlantUML](https://plantuml.com/) or [Mermaid](https://mermaid-js.github.io/mermaid/#/). See the example file `docs/test-md-library/diag.md` but note that if you want to use Mermaid, you have to add 2 lines to your template. See [docs/details](./docs/details.md) for details.
+* Bumped to v0.2.0 because a new feature is added
 
 ## [0.1.1](https://github.com/TotallyInformation/node-red-static-markdown/compare/v0.0.15...v0.1.1)
 

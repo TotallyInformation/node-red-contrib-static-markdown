@@ -10,6 +10,8 @@ Each folder may contain a file named `index.md` and if so, this will be used as 
 
 A `.templates` folder can contain Handlebars templates used to render the content. There is a default template if you don't want to bother.
 
+Markdown extensions are used to provide plenty of [extended features](./docs/details.md) such as frontmatter, diagrams and so on.
+
 ## Markup
 
 The source files can contain any valid [CommonMark](https://commonmark.org/) markup (provided by the [markdown-it](https://github.com/markdown-it/markdown-it)) and may also contain metadata in a [YAML header](https://yaml.org/spec/1.2/spec.html#Preview). e.g.
@@ -74,7 +76,7 @@ In addition to the translated markdown, the following metadata is provided to th
 
 The following is an example template showing content and metadata:
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -95,6 +97,10 @@ The following is an example template showing content and metadata:
 
         <h2>Front Matter</h2>
         <pre>{{fmPre}}</pre>
+        
+        <!-- Required if you want to use Mermaid diagrams -->
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
     </body>
 </html>
 ```

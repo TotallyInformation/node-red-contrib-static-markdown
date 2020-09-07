@@ -81,6 +81,7 @@ module.exports = function serveMarkdown(RED, node){
         html: true, 
         linkify: true,
     })
+        .use(require('markdown-it-textual-uml'))
         .use(require('markdown-it-front-matter'), function(fm) {
             frontMatter = yaml.load(fm)
         })
