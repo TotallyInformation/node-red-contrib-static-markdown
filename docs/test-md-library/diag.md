@@ -21,6 +21,9 @@
     * [Mathematic with AsciiMath or JLaTeXMath notationm](#mathematic-with-asciimath-or-jlatexmath-notationm)
     * [Entity Relationship Diagram](#entity-relationship-diagram)
     * [Graphviz/DOT](#graphvizdot)
+  * [PlantUML Stdlib Examples](#plantuml-stdlib-examples)
+    * [Example Network Diagram](#example-network-diagram)
+    * [Example System Context diagram](#example-system-context-diagram)
   * [Mermaid](#mermaid)
     * [Flowchart](#flowchart)
     * [Sequence diagram](#sequence-diagram-1)
@@ -49,11 +52,12 @@ See the source code for this page to view the syntax or check out the PlantUML/M
 
 ## PlantUML
 
-https://plantuml.com/
+https://plantuml.com/ - PlantUML diagrams are “Diagrams as Code” in PlantUML syntax.
 
 Note that this uses the PlantUML.com website. Data is passed to that website which converts it to an SVG.
 
 That means that you can only use this with an internet connection.
+
 
 ### [Sequence Diagram](https://plantuml.com/sequence-diagram)
 
@@ -426,7 +430,6 @@ Note that there are lots of other options for creating mindmaps, check the linke
 mindmapDiagram {
     :depth(0) {
         BackgroundColor lightGreen
-        fontWeight bold
     }
     :depth(1) {
       BackGroundColor white
@@ -436,7 +439,7 @@ mindmapDiagram {
 caption figure 1
 title My super title
 
-* <&flag>Debian
+* <b><&flag>Debian</b>
 ** <&globe>Ubuntu
 ***:Linux Mint
 <i>My favourite</i>;
@@ -557,6 +560,109 @@ digraph foo {
 
   node1 -> node2 -> node3
 }
+@enduml
+```
+
+## PlantUML Stdlib Examples
+
+The PlantUML standard library is a set of extensions for PlantUML that include icons and facilitate standardised IT documentation
+
+### [Example Network Diagram](https://crashedmind.github.io/PlantUMLHitchhikersGuide/)
+
+Uses Plantuml Stdlib Open Security Architecture icon set
+
+```plantuml
+@startuml
+!define osaPuml https://raw.githubusercontent.com/Crashedmind/PlantUML-opensecurityarchitecture2-icons/master
+!include osaPuml/Common.puml
+!include osaPuml/User/all.puml
+!include osaPuml/Hardware/all.puml
+!include osaPuml/Misc/all.puml
+!include osaPuml/Server/all.puml
+!include osaPuml/Site/all.puml
+
+'. Mary is a Developer in the Product team. She has a Windows 10 PC and an Android phone.
+'. Bob is a Manager in the Accounts team. He has Mac and an iPhone.
+'. Ivan is an IT guy who looks after the server. 
+'. They connect to the network hub, and via a firewall to the Internet.
+
+
+' Users
+together {
+osa_user_green_developer(Mary, "Mary", "Product team", "Developer")
+osa_user_green_operations(Ivan, "Ivan", "IT Team", "Server Admin")
+osa_user_green_business_manager(Bob, "Bob", "Accounts team", "Manager")
+}
+
+' Devices
+together {
+osa_desktop(pc, "192.168.1.10", "Windows 10", "PC")
+osa_laptop(mac, "192.168.1.12", "Mac", "Mac")
+osa_iPhone(iphone, "Dynamic IP", "iPhone 11", "Phone")
+osa_iPhone(android, "Dynamic IP", "Android 10", "Phone")
+osa_server(server, "192.168.1.100", "Ubuntu Server 20.04 LTS", "Server")
+}
+
+
+' Network
+
+osa_device_wireless_router(wifiAP, "192.168.1.1", "Network")
+osa_hub(hub, "Office hub", "Hub")
+osa_firewall(firewall, "51.37.24.103", "Network")
+osa_cloud(cloud, "Internet", "Network")
+
+
+Mary --> pc: source code
+Mary --> android: social media
+
+Bob --> mac: financial info
+Bob --> iphone: phone calls
+
+
+Ivan --> server: configuration
+
+iphone --> wifiAP
+android --> wifiAP
+wifiAP --> hub
+
+server --> hub
+mac --> hub
+pc --> hub
+
+
+hub --> firewall
+
+firewall --> cloud
+
+footer %filename() rendered with PlantUML version %version()\nThe Hitchhiker’s Guide to PlantUML
+@enduml
+```
+
+### [Example System Context diagram](https://crashedmind.github.io/PlantUMLHitchhikersGuide/C4/C4Stdlib.html#context)
+
+```plantuml
+@startuml
+!include <c4/C4_Context.puml>  
+
+'ref http://plantuml.com/stdlib
+!include <office/Users/user.puml>
+!include <office/Users/mobile_user.puml>
+
+'LAYOUT_WITH_LEGEND
+
+title System Context diagram for Internet Banking System
+
+Person(customer  , Customer , "<$user> <$mobile_user>\n A customer of the bank, with personal bank accounts" )
+
+System(banking_system, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.")
+
+System_Ext(mail_system, "E-mail system", "The internal Microsoft Exchange e-mail system.")
+System_Ext(mainframe, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
+
+Rel(customer, banking_system, "Uses")
+Rel_Back(customer, mail_system, "Sends e-mails to")
+Rel_Neighbor(banking_system, mail_system, "Sends e-mails", "SMTP")
+Rel(banking_system, mainframe, "Uses")
 @enduml
 ```
 
