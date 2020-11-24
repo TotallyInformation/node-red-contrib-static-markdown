@@ -3,15 +3,26 @@ title: Testing markdown-it and extensions
 ---
 # Common Mark Test file
 
-## TOC
+## TOC and Header HTML id attribute
 
-Requires markdown-it extension `markdown-it-anchor` and `markdown-it-table-of-contents`
+Requires markdown-it extensions `markdown-it-anchor` and `markdown-it-toc-done-right`.
 
 ```markdown
 [[toc]]
 ```
 
 [[toc]]
+
+Note that the extension `markdown-it-anchor` adds an [HTML id Attribute](https://www.w3schools.com/html/html_id.asp) to each header based on the header title truncated to the first colon (`:`).  Thanks to this id it is possible to create links to any header as follows:
+
+```markdown
+### TASK01: Update this readme
+
+This is a [link to TASK 01](#task01)
+```
+### TASK01: update this readme
+
+This is a [link to TASK01](#task01)
 
 ## Symbols
 
