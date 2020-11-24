@@ -22,6 +22,16 @@ const express = require('express')
 const tilib = require('./tilib.js')
 const handlebars = require('handlebars')
 const yaml = require('js-yaml')
+
+// The heading anchors are truncated up to the colon.
+// E.g. The following heading 
+//        `## RULE_001 : You cannot cheat`
+// Link to the above heading:
+//     [link to RULE_001](#rule_001)
+// see also https://www.npmjs.com/package/markdown-it-anchor#user-friendly-urls
+const string = require('string')
+const truncatedSlugify = s => (string(s).split(":")[Ø]).slugify().toString()
+
 //const sanitizeHtml = require('sanitize-html')
 
 module.exports = function serveMarkdown(RED, node){
@@ -92,7 +102,7 @@ module.exports = function serveMarkdown(RED, node){
         .use(require('markdown-it-emoji'))
         .use(require('@gerhobbelt/markdown-it-include'),includeOptions)
         .use(require('markdown-it-playground'))
-        .use(require('markdown-it-anchor'))
+        .use(require('markdown-it-anchor', { slugify: truncatedSlugify }))
         .use(require('markdown-it-table-of-contents'))
         .use(require('markdown-it-imsize'))
         .use(require('markdown-it-checkbox'))
