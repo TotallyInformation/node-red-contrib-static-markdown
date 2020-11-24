@@ -85,7 +85,7 @@ module.exports = function serveMarkdown(RED, node){
     //     [link to RULE_001](#rule_001)
     // see also https://www.npmjs.com/package/markdown-it-anchor#user-friendly-urls
     // const truncatedSlugify = s => ((string(s).splitLeft(':',1))[Ø]).slugify().toString()
-    const anchorOptions = {
+    const truncatedSlugifyOption = {
          slugify : (s) => encodeURIComponent(String(s).split(':')[0].trim().toLowerCase().replace(/\s+/g, '-'))
     }
 
@@ -104,8 +104,8 @@ module.exports = function serveMarkdown(RED, node){
         .use(require('markdown-it-emoji'))
         .use(require('@gerhobbelt/markdown-it-include'),includeOptions)
         .use(require('markdown-it-playground'))
-        .use(require('markdown-it-anchor'),anchorOptions)
-        .use(require('markdown-it-table-of-contents'))
+        .use(require('markdown-it-anchor'),        truncatedSlugifyOption)
+        .use(require('markdown-it-toc-done-right'),truncatedSlugifyOption)
         .use(require('markdown-it-imsize'))
         .use(require('markdown-it-checkbox'))
         .use(require('markdown-it-mark'))
